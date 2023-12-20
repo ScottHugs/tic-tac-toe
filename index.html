@@ -4,9 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <source delay src="app.js" type="">
 </head>
 <body>
-    <h1>TIC-TAC-TOE</h1>
-    
+    <div class="page-wrapper">
+        <header>
+            <h1>TIC-TAC-TOE</h1>
+        </header>
+        <main>
+            <header class="game-state-header">
+                <h3 class="game-state-description-elem">Player A's turn</h3>
+                <button class="next-game-btn">Next Game</button>
+            </header>
+            <section class="game-board-grid-section">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>   
+            </section>
+
+            <section class="scores-section">
+                <h4>Player A Wins:</h4>
+                <h4>Draws:</h4>
+                <h4>Player B Wins:</h4>
+                
+                <p class="player-a-win-count-elem/">0</p>
+                <p class="draws-count-elem">0</p>
+                <p class="player-b-win-count-elem/">0</p>
+            </section>
+
+            <footer class="game-buttons-footer">
+                <button class="reset-game-btn">Reset Game</button>
+            </footer>
+        </main>
+    </div>
 </body>
 </html>
