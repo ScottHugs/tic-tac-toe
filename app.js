@@ -42,10 +42,14 @@ resetGameBtn.addEventListener('click', handleResetGame)
 function handleGameTileSelect(event) {
     let selectedTile = event.target
     let gridNum = Number(selectedTile.dataset.num)
-    
+
+    if (playerAScoreArr.includes(gridNum)||playerBScoreArr.includes(gridNum)||nextGameBtn.style.display == 'block'){
+        return
+    }
    
     if (currentPlayer === 'a'){ 
-        selectedTile.textContent = 'x'  // update with symbol or image
+        selectedTile.textContent = 'x'
+        //displayTokenImage(selectedTile)
         totalTurns++
         playerAScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
@@ -149,9 +153,16 @@ function resetBoard() {
     playerBScoreArr = []
 }
 
+function displayTokenImage(selectedTile) {
+    
+    if (currentPlayer === 'a') {
+        selectedTile.img.src = css/sushi-roll-pixel-art.png
+    } else {
+        selectedTile.img.src = css/nigiri-pixel-art.png
+    }
+}
 
-// test function 
-// i want two arrays and i want the numbers of the first array to be contianed somewhere in the second array. 
+
 function winConCheck(winConArr,playerScoreArr){
     let numbersInARow = 0
     let j = 0                          //outer index
