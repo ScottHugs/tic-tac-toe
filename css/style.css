@@ -13,7 +13,9 @@ body {
 }
 
 .page-wrapper {
-    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    margin: 5px auto;
     max-width: 1000px;
     background-color: #deb887;
     border: 5px solid #8b6914;
@@ -26,21 +28,58 @@ h1 {
     font-family: pixelFont;
     font-weight: 700;
     font-size: 50px;
-    margin: 0;
+    margin: 0 0 -5px 0;
+    color: white;
 }
 h2 {
     text-align: center;
     font-family: pixelFont;
     font-size: 30px;
-    margin:0;
+    color: white;
+    margin:0 0 15px 0;
     padding: 0;
 }
 
 main {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     max-width: 400px;
 }
+
+.left-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.right-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.left-aside div {
+    background-image: url(sushi-roll-pixel-art.png);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 120px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-size: cover;
+}
+
+.right-aside div {
+    background-image: url(nigiri-pixel-art.png);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 120px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-size: cover;
+}
+
 
 .game-state-header {
     display: flex;
@@ -48,14 +87,14 @@ main {
     text-align: center;
     gap: 20px;
     font-family: 'Pixelify Sans', sans-serif;
-    margin-bottom: 10px;
+    margin: 0;
 }
 
 .game-state-description-elem {
     display: inline-block;
     font-family: 'Pixelify Sans', sans-serif;
     font-size: 30px;
-    margin: 40px 0 20px 0;
+    margin: 30px 0;
 }
 .next-game-btn {
     display: none;
@@ -63,10 +102,10 @@ main {
     font-size: 20px;
     color: white;
     /* padding: 15px 5px; */
-    margin: 30px 0 0 0;
+    margin: 15px;
     background-color: #20272c;
     border: 3px solid dimgrey;
-    border-radius: 7%;
+    border-radius: 5%;
 }
 
 .game-board-grid-section {
@@ -83,7 +122,6 @@ main {
     align-items: center;
     width: 100%;
     aspect-ratio: 1/1;
-    font-size: xx-large;
     background-size: cover;
     border: 5px solid darkred;
     box-shadow: 7px 7px 5px black;
@@ -123,5 +161,5 @@ main {
     background-color: #20272c;
     border: 3px solid dimgrey;
     color: white;
-    border-radius: 7%;
+    border-radius: 5%;
 }

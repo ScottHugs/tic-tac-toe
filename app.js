@@ -13,6 +13,9 @@ const possibleWinCombos = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,
 
 let totalTurns = 0 
 
+let playerADisplayTokenCount = 5
+let playerBDisplayTokenCount = 5
+
 // == caching dom element references 
 
 const gameStateDescriptionElem = document.querySelector('.game-state-description-elem')
@@ -50,10 +53,12 @@ function handleGameTileSelect(event) {
     if (currentPlayer === 'a'){ 
         //selectedTile.textContent = 'x'
         displayTokenImage(selectedTile)
+        //selectedTile.className = "animate__animated animate__jello"
         totalTurns++
         playerAScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
         
+        removePlayerSideDisplayToken()
         togglePlayer()
         updateTurnPlayer()
 
@@ -70,6 +75,7 @@ function handleGameTileSelect(event) {
         playerBScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
         
+        removePlayerSideDisplayToken()
         togglePlayer()
         updateTurnPlayer()
         
@@ -121,6 +127,7 @@ function handleResetGame() {
     playerBWinCount = 0 
     drawCount = 0 
 
+
     resetBoard()
     updateTurnPlayer()
 
@@ -145,12 +152,43 @@ function togglePlayer(){
     }
 }
 
+function removePlayerSideDisplayToken(){
+    if (currentPlayer === 'a') {
+        const playerSideDisplayTokenElem = document.querySelector('.left-aside div')
+        playerSideDisplayTokenElem.remove()
+        playerADisplayTokenCount--
+    } else {
+        const playerSideDisplayTokenElem = document.querySelector('.right-aside div')
+        playerSideDisplayTokenElem.remove()
+        playerBDisplayTokenCount--
+    }
+    
+}
+
 function resetBoard() {
     for (let gameBoardGridElem of gameBoardGridElems) {
         gameBoardGridElem.style.backgroundImage = 'none'
     }
+
+    for (i = 0; i < 5 - playerADisplayTokenCount; i++){
+        const newPlayerADisplayTokenElem = document.createElement('div')
+        newPlayerADisplayTokenElem.className = "animate__animated animate__jello"
+        const playerADisplayTokenAside = document.querySelector('.left-aside')
+        playerADisplayTokenAside.appendChild(newPlayerADisplayTokenElem)
+    }
+    for (i = 0; i < 5 - playerBDisplayTokenCount; i++){
+        const newPlayerBDisplayTokenElem = document.createElement('div')
+        newPlayerBDisplayTokenElem.className = "animate__animated animate__jello"
+        const playerBDisplayTokenAside = document.querySelector('.right-aside')
+        playerBDisplayTokenAside.appendChild(newPlayerBDisplayTokenElem)
+    }
+    
+
     playerAScoreArr = []
     playerBScoreArr = []
+
+    playerADisplayTokenCount = 5
+    playerBDisplayTokenCount = 5
 }
 
 function displayTokenImage(selectedTile) {
