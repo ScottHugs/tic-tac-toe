@@ -10,11 +10,17 @@ let startingPlayer = currentPlayer
 let playerAScoreArr = []
 let playerBScoreArr = []
 const possibleWinCombos = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+let winningCombo = []
 
 let totalTurns = 0 
 
 let playerADisplayTokenCount = 5
 let playerBDisplayTokenCount = 5
+
+
+let audioPlayerA = new Audio('audio/squelch.mp3')
+let audioPlayerB = new Audio('audio/squish.mp3')
+let audioWin = new Audio('audio/success.mp3')
 
 // == caching dom element references 
 
@@ -53,7 +59,8 @@ function handleGameTileSelect(event) {
     if (currentPlayer === 'a'){ 
         //selectedTile.textContent = 'x'
         displayTokenImage(selectedTile)
-        //selectedTile.className = "animate__animated animate__jello"
+        selectedTile.className = "animate__animated animate__jello"
+        audioPlayerA.play()
         totalTurns++
         playerAScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
@@ -64,6 +71,8 @@ function handleGameTileSelect(event) {
 
         if (winConCheck(possibleWinCombos,playerAScoreArr)) {
             gameStateDescriptionElem.textContent = 'Player A WINS!'
+            audioWin.play()
+            //winAnimation()
             nextGameBtn.style.display = 'block'
             playerAWinCount++
             playerAWinCountElem.textContent = playerAWinCount
@@ -71,6 +80,8 @@ function handleGameTileSelect(event) {
         }
     } else {
         displayTokenImage(selectedTile)
+        selectedTile.className = "animate__animated animate__jello"
+        audioPlayerB.play()
         totalTurns++
         playerBScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
@@ -81,6 +92,7 @@ function handleGameTileSelect(event) {
         
         if (winConCheck(possibleWinCombos,playerBScoreArr)) {
             gameStateDescriptionElem.textContent = 'Player B WINS!'
+            audioWin.play()
             nextGameBtn.style.display = 'block'
             playerBWinCount++
             playerBWinCountElem.textContent = playerBWinCount
@@ -168,6 +180,8 @@ function removePlayerSideDisplayToken(){
 function resetBoard() {
     for (let gameBoardGridElem of gameBoardGridElems) {
         gameBoardGridElem.style.backgroundImage = 'none'
+        gameBoardGridElem.classList.remove("animate__animated")
+        gameBoardGridElem.classList.remove("animate__jello")
     }
 
     for (i = 0; i < 5 - playerADisplayTokenCount; i++){
@@ -175,17 +189,20 @@ function resetBoard() {
         newPlayerADisplayTokenElem.className = "animate__animated animate__jello"
         const playerADisplayTokenAside = document.querySelector('.left-aside')
         playerADisplayTokenAside.appendChild(newPlayerADisplayTokenElem)
+        audioPlayerA.play()
     }
     for (i = 0; i < 5 - playerBDisplayTokenCount; i++){
         const newPlayerBDisplayTokenElem = document.createElement('div')
         newPlayerBDisplayTokenElem.className = "animate__animated animate__jello"
         const playerBDisplayTokenAside = document.querySelector('.right-aside')
         playerBDisplayTokenAside.appendChild(newPlayerBDisplayTokenElem)
+        audioPlayerB.play()
     }
     
 
     playerAScoreArr = []
     playerBScoreArr = []
+    winningCombo = [] 
 
     playerADisplayTokenCount = 5
     playerBDisplayTokenCount = 5
@@ -200,28 +217,34 @@ function displayTokenImage(selectedTile) {
     }
 }
 
-
 function winConCheck(winConArr,playerScoreArr){
-    let numbersInARow = 0
     let j = 0                          //outer index
    
-    while (numbersInARow !== 3 && j < winConArr.length) {
-        numbersInARow = 0 
+    while (winningCombo.length !== 3 && j < winConArr.length) {
+        winningCombo = [] 
         for (i = 0; i < winConArr[j].length; i++) {
             if (playerScoreArr.includes(winConArr[j][i])) {
-                numbersInARow ++
+                winningCombo.push(winConArr[j][i])
             } 
         }
         j++
     }
     
-    if (numbersInARow === 3) {
+    if (winningCombo.length === 3) {
         return true
     } else {
         return false
     }
     
 }
+
+// function winAnimation() {
+//     for (i = 0; i < 3; i++) {
+//         let winningTile = document.querySelector(`.tile-${winningCombo[i]}`)
+//         winningTile.style.width = '120%'
+//     }
+
+// }
 
 
 

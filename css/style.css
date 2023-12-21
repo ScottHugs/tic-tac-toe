@@ -101,7 +101,6 @@ main {
     font-family: 'Pixelify Sans', sans-serif;
     font-size: 20px;
     color: white;
-    /* padding: 15px 5px; */
     margin: 15px;
     background-color: #20272c;
     border: 3px solid dimgrey;
@@ -112,7 +111,8 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     border: 8px solid black;
-    background-color: #CA3433;
+    background-image: url(grid-background.png);
+    background-size: cover;
     box-shadow: 10px 10px 5px #433103;
 }
 
@@ -123,9 +123,7 @@ main {
     width: 100%;
     aspect-ratio: 1/1;
     background-size: cover;
-    border: 5px solid darkred;
-    box-shadow: 7px 7px 5px black;
-    
+    /* transition: all 1s linear; */
 }
 
 .scores-section {
