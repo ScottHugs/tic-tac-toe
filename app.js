@@ -48,8 +48,8 @@ function handleGameTileSelect(event) {
     }
    
     if (currentPlayer === 'a'){ 
-        selectedTile.textContent = 'x'
-        //displayTokenImage(selectedTile)
+        //selectedTile.textContent = 'x'
+        displayTokenImage(selectedTile)
         totalTurns++
         playerAScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
@@ -65,7 +65,7 @@ function handleGameTileSelect(event) {
             totalTurns = 0 
         }
     } else {
-        selectedTile.textContent = 'o'  // update with symbol or image
+        displayTokenImage(selectedTile)
         totalTurns++
         playerBScoreArr.push(gridNum)
         selectedTile.setAttribute('disabled', 'disabled')
@@ -147,7 +147,7 @@ function togglePlayer(){
 
 function resetBoard() {
     for (let gameBoardGridElem of gameBoardGridElems) {
-        gameBoardGridElem.textContent = ""
+        gameBoardGridElem.style.backgroundImage = 'none'
     }
     playerAScoreArr = []
     playerBScoreArr = []
@@ -156,9 +156,9 @@ function resetBoard() {
 function displayTokenImage(selectedTile) {
     
     if (currentPlayer === 'a') {
-        selectedTile.img.src = css/sushi-roll-pixel-art.png
+        selectedTile.style.backgroundImage = 'url(css/sushi-roll-pixel-art.png)'
     } else {
-        selectedTile.img.src = css/nigiri-pixel-art.png
+        selectedTile.style.backgroundImage = 'url(css/nigiri-pixel-art.png)'
     }
 }
 
