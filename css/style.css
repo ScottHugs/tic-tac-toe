@@ -123,7 +123,7 @@ main {
     width: 100%;
     aspect-ratio: 1/1;
     background-size: cover;
-    /* transition: all 1s linear; */
+    transition: all 1s linear;
 }
 
 .scores-section {

@@ -19,8 +19,9 @@ let playerBDisplayTokenCount = 5
 
 
 let audioPlayerA = new Audio('audio/squelch.mp3')
-let audioPlayerB = new Audio('audio/squish.mp3')
+let audioPlayerB = new Audio('audio/squash.mp3')
 let audioWin = new Audio('audio/success.mp3')
+let audioDraw = new Audio('audio/coin.mp3')
 
 // == caching dom element references 
 
@@ -57,9 +58,9 @@ function handleGameTileSelect(event) {
     }
    
     if (currentPlayer === 'a'){ 
-        //selectedTile.textContent = 'x'
         displayTokenImage(selectedTile)
-        selectedTile.className = "animate__animated animate__jello"
+        selectedTile.classList.add("animate__animated")
+        selectedTile.classList.add("animate__jello")
         audioPlayerA.play()
         totalTurns++
         playerAScoreArr.push(gridNum)
@@ -72,7 +73,7 @@ function handleGameTileSelect(event) {
         if (winConCheck(possibleWinCombos,playerAScoreArr)) {
             gameStateDescriptionElem.textContent = 'Player A WINS!'
             audioWin.play()
-            //winAnimation()
+            winAnimation()
             nextGameBtn.style.display = 'block'
             playerAWinCount++
             playerAWinCountElem.textContent = playerAWinCount
@@ -80,7 +81,8 @@ function handleGameTileSelect(event) {
         }
     } else {
         displayTokenImage(selectedTile)
-        selectedTile.className = "animate__animated animate__jello"
+        selectedTile.classList.add("animate__animated")
+        selectedTile.classList.add("animate__jello")
         audioPlayerB.play()
         totalTurns++
         playerBScoreArr.push(gridNum)
@@ -93,6 +95,7 @@ function handleGameTileSelect(event) {
         if (winConCheck(possibleWinCombos,playerBScoreArr)) {
             gameStateDescriptionElem.textContent = 'Player B WINS!'
             audioWin.play()
+            winAnimation()
             nextGameBtn.style.display = 'block'
             playerBWinCount++
             playerBWinCountElem.textContent = playerBWinCount
@@ -102,10 +105,10 @@ function handleGameTileSelect(event) {
 
     if (totalTurns === 9) {
         gameStateDescriptionElem.textContent = `It's a DRAW!`
+        audioDraw.play()
         nextGameBtn.style.display = 'block'
         drawCount++
         drawCountElem.textContent = drawCount
-        totalTurns = 0 
     }
 }
 
@@ -186,23 +189,35 @@ function resetBoard() {
 
     for (i = 0; i < 5 - playerADisplayTokenCount; i++){
         const newPlayerADisplayTokenElem = document.createElement('div')
-        newPlayerADisplayTokenElem.className = "animate__animated animate__jello"
+        newPlayerADisplayTokenElem.classList.add("animate__animated")
+        newPlayerADisplayTokenElem.classList.add("animate__jello")
         const playerADisplayTokenAside = document.querySelector('.left-aside')
         playerADisplayTokenAside.appendChild(newPlayerADisplayTokenElem)
         audioPlayerA.play()
     }
     for (i = 0; i < 5 - playerBDisplayTokenCount; i++){
         const newPlayerBDisplayTokenElem = document.createElement('div')
-        newPlayerBDisplayTokenElem.className = "animate__animated animate__jello"
+        newPlayerBDisplayTokenElem.classList.add("animate__animated")
+        newPlayerBDisplayTokenElem.classList.add("animate__jello")
         const playerBDisplayTokenAside = document.querySelector('.right-aside')
         playerBDisplayTokenAside.appendChild(newPlayerBDisplayTokenElem)
         audioPlayerB.play()
     }
     
+    if (winningCombo.length === 3) {
+         for (i = 0; i < 3; i++) {
+            let winningTile = document.querySelector(`.tile-${winningCombo[i]}`)
+            winningTile.style.backgroundColor = 'rgba(255, 255, 255, 0)'
+        }
+    }
+   
+
 
     playerAScoreArr = []
     playerBScoreArr = []
     winningCombo = [] 
+
+    totalTurns = 0 
 
     playerADisplayTokenCount = 5
     playerBDisplayTokenCount = 5
@@ -238,13 +253,12 @@ function winConCheck(winConArr,playerScoreArr){
     
 }
 
-// function winAnimation() {
-//     for (i = 0; i < 3; i++) {
-//         let winningTile = document.querySelector(`.tile-${winningCombo[i]}`)
-//         winningTile.style.width = '120%'
-//     }
-
-// }
+function winAnimation() {
+    for (i = 0; i < 3; i++) {
+        let winningTile = document.querySelector(`.tile-${winningCombo[i]}`)
+        winningTile.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
+    }
+}
 
 
 
